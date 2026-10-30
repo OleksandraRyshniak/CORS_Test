@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>CORS test</title>
+</head>
+<body>
+<h2>CORS testimine</h2>
+<button onclick="testCORS()">Testi CORS-i</button>
+<pre id="result"></pre>
+
+<script>
+    async function testCORS() {
+        try {
+            const response = await fetch(
+                "http://127.0.0.1:5000/andmed",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        nimi: "Test",
+                        teade: "CORS töötab"
+                    })
+                }
+            );
+
+            const data = await response.json();
+            document.getElementById("result").textContent =
+                JSON.stringify(data, null, 2);
+        } catch (error) {
+            document.getElementById("result").textContent =
+                error.message;
+        }
+    }
+</script>
+</body>
+</html>
